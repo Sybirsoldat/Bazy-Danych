@@ -1,8 +1,9 @@
-package com.example.librarysystem.controllers;
+package com.example.library.controllers;
 
-import com.example.librarysystem.models.User;
-import com.example.librarysystem.services.UserService;
+import com.example.library.models.User;
+import com.example.library.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,19 +12,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
     @Autowired
     private UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<User> getUserByLogin(@RequestParam String login) {
+        return new ResponseEntity<>(userService.getUserByLogin(login), HttpStatus.OK);
     }
 
     @PostMapping
