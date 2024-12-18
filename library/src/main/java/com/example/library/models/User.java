@@ -22,7 +22,7 @@ public class User {
     private String surname;
     private String patronymic;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "gender_id")
     private Gender gender;
 
@@ -31,7 +31,7 @@ public class User {
     @Column(name = "mobile_phone", unique = true)
     private String mobilePhone;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 
