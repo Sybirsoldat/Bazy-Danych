@@ -1,0 +1,48 @@
+# --- Testowanie API dla User ---
+
+### Pobierz wszystkich użytkowników
+GET http://localhost:8080/api/users
+Accept: application/json
+
+### Pobierz użytkownika po ID
+GET http://localhost:8080/api/users/1
+Accept: application/json
+
+### Pobierz użytkownika po loginie
+GET http://localhost:8080/api/users/login?login=testLogin
+Accept: application/json
+
+### Utwórz nowego użytkownika
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "login": "newUser",
+  "password": "password123",
+  "email": "newuser@example.com",
+  "firstname": "John",
+  "surname": "Doe",
+  "patronymic": "Middle",
+  "address": "123 Main St",
+  "mobilePhone": "1234567890",
+  "status": true,
+  "gender": { "id": 1 },
+  "role": { "id": 1 }
+}
+
+### Zaktualizuj dane użytkownika
+PUT http://localhost:8080/api/users/1
+Content-Type: application/json
+
+{
+  "email": "updateduser@example.com",
+  "mobilePhone": "0987654321",
+  "firstname": "Updated",
+  "surname": "User",
+  "address": "456 New Address",
+  "status": false
+}
+
+### Usuń użytkownika po ID
+DELETE http://localhost:8080/api/users/1
+Accept: application/json

@@ -1,0 +1,43 @@
+# --- Testowanie API dla Orders ---
+
+### Pobierz wszystkie zamówienia
+GET http://localhost:8080/api/orders
+Accept: application/json
+
+### Pobierz zamówienie po ID
+GET http://localhost:8080/api/orders/1
+Accept: application/json
+
+### Pobierz zamówienia użytkownika po ID użytkownika
+GET http://localhost:8080/api/orders/user/1
+Accept: application/json
+
+### Pobierz aktywne zamówienia
+GET http://localhost:8080/api/orders/active
+Accept: application/json
+
+### Utwórz nowe zamówienie
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "user": { "id": 1 },
+  "orderDate": "2024-12-18T12:00:00",
+  "dateFrom": "2024-12-18T12:00:00",
+  "dateTo": "2025-01-18T12:00:00",
+  "isActive": true
+}
+
+### Zaktualizuj zamówienie po ID
+PUT http://localhost:8080/api/orders/13
+Content-Type: application/json
+
+{
+  "dateFrom": "2024-12-19T12:00:00",
+  "dateTo": "2025-01-19T12:00:00",
+  "isActive": false
+}
+
+### Usuń zamówienie po ID
+DELETE http://localhost:8080/api/orders/2
+Accept: application/json

@@ -1,0 +1,49 @@
+# --- Testowanie API dla OrdersBooks ---
+
+### Pobierz wszystkie książki w zamówieniach
+GET http://localhost:8080/api/orders-books
+Accept: application/json
+
+### Pobierz książkę w zamówieniu po ID
+GET http://localhost:8080/api/orders-books/6
+Accept: application/json
+
+### Pobierz książki dla zamówienia po ID zamówienia
+GET http://localhost:8080/api/orders-books/order/7
+Accept: application/json
+
+### Pobierz książki dla zamówienia po ID książki
+GET http://localhost:8080/api/orders-books/book/4
+Accept: application/json
+
+### Pobierz wydane książki
+GET http://localhost:8080/api/orders-books/issued?issued=true
+Accept: application/json
+
+### Utwórz nowe powiązanie książki z zamówieniem
+POST http://localhost:8080/api/orders-books
+Content-Type: application/json
+
+{
+  "book": { "id": 4 },
+  "order": { "id": 7 },
+  "quantity": 2,
+  "totalPrice": 200.00,
+  "issued": false
+}
+
+### Zaktualizuj powiązanie książki z zamówieniem
+PUT http://localhost:8080/api/orders-books/6
+Content-Type: application/json
+
+{
+  "book": { "id": 4 },
+  "order": { "id": 7 },
+  "quantity": 3,
+  "totalPrice": 300.00,
+  "issued": true
+}
+
+### Usuń powiązanie książki z zamówieniem
+DELETE http://localhost:8080/api/orders-books/7
+Accept: application/json
