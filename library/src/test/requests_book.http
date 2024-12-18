@@ -23,6 +23,10 @@ Accept: application/json
 GET http://localhost:8080/api/books/1
 Accept: application/json
 
+### Pobierz książkę po ID
+GET http://localhost:8080/api/books/2
+Accept: application/json
+
 ### Wyszukaj książki po tytule
 GET http://localhost:8080/api/books/search?title=Testowa%20Ksiazka
 Accept: application/json
