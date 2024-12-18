@@ -1,0 +1,56 @@
+# --- Testowanie API dla Book ---
+
+### Dodaj nową książkę
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "Nowa Książka",
+  "description": "Opis nowej książki",
+  "totalAmount": 5,
+  "coverUrl": "https://example.com/okladka.jpg",
+  "deleted": false,
+  "publishYear": 2024,
+  "price": 120,
+  "genre": { "id": 1 }
+}
+
+### Pobierz wszystkie książki
+GET http://localhost:8080/api/books
+Accept: application/json
+
+### Pobierz książkę po ID
+GET http://localhost:8080/api/books/1
+Accept: application/json
+
+### Wyszukaj książki po tytule
+GET http://localhost:8080/api/books/search?title=Testowa%20Ksiazka
+Accept: application/json
+
+### Wyszukaj książki po gatunku
+GET http://localhost:8080/api/books/search?genreId=1
+Accept: application/json
+
+### Wyszukaj książki po roku wydania
+GET http://localhost:8080/api/books/search?publishYear=2023
+Accept: application/json
+
+### Wyszukaj książki po zakresie cen
+GET http://localhost:8080/api/books/search?minPrice=50&maxPrice=150
+Accept: application/json
+
+### Zaktualizuj dostępność książki
+PUT http://localhost:8080/api/books/1/availability?totalAmount=10
+Accept: application/json
+
+### Zaktualizuj cenę książki
+PUT http://localhost:8080/api/books/1/price?price=99
+Accept: application/json
+
+### Miękkie usunięcie książki
+DELETE http://localhost:8080/api/books/1/soft
+Accept: application/json
+
+### Usuń książkę trwale
+DELETE http://localhost:8080/api/books/1
+Accept: application/json
