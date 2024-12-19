@@ -1,0 +1,33 @@
+# --- Testowanie API dla Role ---
+
+### Pobierz wszystkie role
+GET http://localhost:8080/api/roles
+Accept: application/json
+
+### Pobierz rolę po ID
+GET http://localhost:8080/api/roles/1
+Accept: application/json
+
+### Wyszukaj rolę po nazwie
+GET http://localhost:8080/api/roles/search?roleName=Administrator
+Accept: application/json
+
+### Utwórz nową rolę
+POST http://localhost:8080/api/roles
+Content-Type: application/json
+
+{
+  "roleName": "Moderator"
+}
+
+### Zaktualizuj istniejącą rolę
+PUT http://localhost:8080/api/roles/1
+Content-Type: application/json
+
+{
+  "roleName": "Super Administrator"
+}
+
+### Usuń rolę po ID
+DELETE http://localhost:8080/api/roles/1
+Accept: application/json

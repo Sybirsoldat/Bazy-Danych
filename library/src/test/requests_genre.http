@@ -1,0 +1,33 @@
+# --- Testowanie API dla Genre ---
+
+### Pobierz wszystkie gatunki
+GET http://localhost:8080/api/genres
+Accept: application/json
+
+### Pobierz gatunek po ID
+GET http://localhost:8080/api/genres/1
+Accept: application/json
+
+### Wyszukaj gatunek po nazwie
+GET http://localhost:8080/api/genres/search?name=Fantasy
+Accept: application/json
+
+### Utwórz nowy gatunek
+POST http://localhost:8080/api/genres
+Content-Type: application/json
+
+{
+  "name": "Science Fiction"
+}
+
+### Zaktualizuj istniejący gatunek
+PUT http://localhost:8080/api/genres/1
+Content-Type: application/json
+
+{
+  "name": "Updated Genre Name"
+}
+
+### Usuń gatunek po ID
+DELETE http://localhost:8080/api/genres/1
+Accept: application/json

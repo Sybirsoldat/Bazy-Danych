@@ -1,0 +1,30 @@
+# --- Testowanie API dla ActivityLog ---
+
+### Pobierz wszystkie logi aktywności
+GET http://localhost:8080/api/activitylog
+Accept: application/json
+
+### Pobierz log aktywności po ID
+GET http://localhost:8080/api/activitylog/2
+Accept: application/json
+
+### Pobierz logi aktywności po ID użytkownika
+GET http://localhost:8080/api/activitylog/user/1
+Accept: application/json
+
+### Wyszukaj logi aktywności po nazwie akcji
+GET http://localhost:8080/api/activitylog/search?action=login
+Accept: application/json
+
+### Utwórz nowy log aktywności
+POST http://localhost:8080/api/activitylog
+Content-Type: application/json
+
+{
+  "user": { "id": 1 },
+  "action": "login"
+}
+
+### Usuń log aktywności po ID
+DELETE http://localhost:8080/api/activitylog/1
+Accept: application/json
