@@ -1,0 +1,3 @@
+### Wydanie książki z zamówienia
+PUT http://localhost:8080/api/transactions/issue-book/17/2/1
+Accept: application/json
