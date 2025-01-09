@@ -1,0 +1,5 @@
+# --- TESTOWANIE API PRZEDŁUŻANIA TERMINU ZWROTU KSIĄŻKI ---
+
+### Przedłużenie terminu zwrotu książki
+PUT http://localhost:8080/api/transactions/extend-return/17/3/7/1
+Accept: application/json
