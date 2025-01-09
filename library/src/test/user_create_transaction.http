@@ -1,0 +1,21 @@
+### Dodaj nowego użytkownika
+POST http://localhost:8080/api/transactions/add-user
+Content-Type: application/json
+
+{
+  "login": "johnpork",
+  "password": "securepassword",
+  "email": "krupier@example.com",
+  "firstname": "John",
+  "surname": "Doe",
+  "patronymic": "Middle",
+  "gender": {
+    "id": 1
+  },
+  "address": "123 Main Street",
+  "mobilePhone": "1234567898",
+  "role": {
+    "id": 2
+  },
+  "status": 1
+}
