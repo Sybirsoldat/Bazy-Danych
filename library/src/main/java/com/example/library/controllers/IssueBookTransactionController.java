@@ -17,11 +17,10 @@ public class IssueBookTransactionController {
     /**
      * Wydanie książki na podstawie zamówienia.
      */
-    @PutMapping("/issue-book/{orderId}/{bookId}/{quantity}")
+    @PutMapping("/issue-book/{orderId}/{bookId}")
     public ResponseEntity<Orders> issueBook(@PathVariable Long orderId,
-                                            @PathVariable Long bookId,
-                                            @PathVariable int quantity) {
-        Orders order = issueBookTransactionService.issueBooks(orderId, bookId, quantity);
+                                            @PathVariable Long bookId ) {
+        Orders order = issueBookTransactionService.issueBooks(orderId, bookId);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 }
