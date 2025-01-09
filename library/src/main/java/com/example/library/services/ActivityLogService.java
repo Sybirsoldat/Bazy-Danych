@@ -13,6 +13,8 @@ public class ActivityLogService {
     @Autowired
     private ActivityLogRepository activityLogRepository;
 
+
+
     public List<ActivityLog> getAllActivityLogs() {
         return activityLogRepository.findAll();
     }

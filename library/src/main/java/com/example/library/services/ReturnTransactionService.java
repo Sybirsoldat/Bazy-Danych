@@ -1,14 +1,18 @@
 package com.example.library.services;
 
+import com.example.library.models.ActivityLog;
 import com.example.library.models.Book;
 import com.example.library.models.Orders;
 import com.example.library.models.OrdersBooks;
+import com.example.library.repositories.ActivityLogRepository;
 import com.example.library.repositories.BookRepository;
 import com.example.library.repositories.OrdersBooksRepository;
 import com.example.library.repositories.OrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @Service
 public class ReturnTransactionService {
@@ -22,56 +26,39 @@ public class ReturnTransactionService {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private ActivityLogRepository activityLogRepository;
+
     /**
-     * Obsługa zwrotu części książek
+     * Obsługa zwrotu wszystkich książek z zamówienia.
      */
     @Transactional
-    public Orders returnBooks(Long orderId, Long bookId, int returnQuantity) {
+    public Orders returnBooks(Long orderId, Long userId) {
         Orders order = ordersRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
-        OrdersBooks orderBook = ordersBooksRepository.findByOrder_Id(orderId).stream()
-                .filter(ob -> ob.getBook().getId().equals(bookId))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Book not found in order"));
+        // Iteruj przez wszystkie książki w zamówieniu
+        ordersBooksRepository.findByOrder_Id(orderId).forEach(orderBook -> {
+            if (!orderBook.getIssued()) {
+                throw new RuntimeException("Book not issued in this order: " + orderBook.getBook().getId());
+            }
 
-        if (!orderBook.getIssued() || returnQuantity <= 0) {
-            throw new RuntimeException("Invalid return quantity.");
-        }
+            // Zwiększ ilość dostępnych książek w magazynie
+            Book book = orderBook.getBook();
+            book.setTotalAmount(book.getTotalAmount() + orderBook.getQuantity());
+            bookRepository.save(book);
 
-        if (returnQuantity > orderBook.getQuantity()) {
-            throw new RuntimeException("Return quantity exceeds issued quantity.");
-        }
-
-        // Aktualizuj ilość książek w magazynie
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
-
-        book.setTotalAmount(book.getTotalAmount() + returnQuantity);
-        bookRepository.save(book);
-
-        // Aktualizacja ilości w OrdersBooks
-        int remainingQuantity = orderBook.getQuantity() - returnQuantity;
-
-        if (remainingQuantity > 0) {
-            // Zaktualizuj ilość w istniejącym zamówieniu
-            orderBook.setQuantity(remainingQuantity);
-            ordersBooksRepository.save(orderBook);
-
-            // Dodaj nowy rekord dla zwróconych książek
-            OrdersBooks returnedOrderBook = new OrdersBooks();
-            returnedOrderBook.setBook(book);
-            returnedOrderBook.setOrder(order);
-            returnedOrderBook.setQuantity(returnQuantity);
-            returnedOrderBook.setTotalPrice((double) (returnQuantity * book.getPrice()));
-            returnedOrderBook.setIssued(false);  // Książki są zwrócone
-            ordersBooksRepository.save(returnedOrderBook);
-        } else {
-            // Jeśli zwrócono wszystko, oznacz rekord jako niewydany
+            // Ustaw `issued` na false
             orderBook.setIssued(false);
-            orderBook.setQuantity(0);  // Zeruj ilość
             ordersBooksRepository.save(orderBook);
-        }
+        });
+
+        // Dodaj wpis do dziennika aktywności
+        ActivityLog log = new ActivityLog();
+        log.setUser(order.getUser()); // Ustaw użytkownika powiązanego z zamówieniem
+        log.setAction("Returned all books for Order ID: " + orderId);
+        log.setTimestamp(LocalDateTime.now());
+        activityLogRepository.save(log);
 
         return order;
     }

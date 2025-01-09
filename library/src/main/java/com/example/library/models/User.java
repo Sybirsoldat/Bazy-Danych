@@ -35,7 +35,7 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    private Boolean status;
+    private int status;
 
     // Gettery i Settery
     public Long getId() {
@@ -126,11 +126,11 @@ public class User {
         this.role = role;
     }
 
-    public Boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

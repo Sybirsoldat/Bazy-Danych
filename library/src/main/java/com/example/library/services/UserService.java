@@ -2,6 +2,8 @@ package com.example.library.services;
 
 import com.example.library.models.User;
 import com.example.library.repositories.UserRepository;
+import com.example.library.models.ActivityLog;
+import com.example.library.services.ActivityLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ActivityLogService activityLogService;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -27,7 +32,15 @@ public class UserService {
 
     public User createUser(User user) {
         validateUniqueFields(user);
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        // Rejestracja aktywności
+        ActivityLog activityLog = new ActivityLog();
+        activityLog.setUser(savedUser);
+        activityLog.setAction("Created a new user");
+        activityLogService.createActivityLog(activityLog);
+
+        return savedUser;
     }
 
     public User updateUser(Long id, User userDetails) {
@@ -54,7 +67,7 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    private void validateUniqueFields(User user) {
+    void validateUniqueFields(User user) {
         validateUniqueEmail(user.getEmail());
         validateUniqueMobilePhone(user.getMobilePhone());
     }

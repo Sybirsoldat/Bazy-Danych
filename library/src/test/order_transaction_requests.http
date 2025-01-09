@@ -12,12 +12,12 @@ Content-Type: application/json
   },
   "books": [
     {
-      "book": { "id": 3 },
+      "book": { "id": 4 },
       "quantity": 2
     },
     {
-      "book": { "id": 2 },
-      "quantity": 1
+      "book": { "id": 3 },
+      "quantity": 2
     }
   ]
 }

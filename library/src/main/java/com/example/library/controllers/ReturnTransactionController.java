@@ -17,11 +17,10 @@ public class ReturnTransactionController {
     /**
      * Zwrot książki dla zamówienia
      */
-    @PutMapping("/return-book/{orderId}/{bookId}/{quantity}")
+    @PutMapping("/return-book/{orderId}/{bookId}")
     public ResponseEntity<Orders> returnBooks(@PathVariable Long orderId,
-                                              @PathVariable Long bookId,
-                                              @PathVariable int quantity) {
-        Orders order = returnTransactionService.returnBooks(orderId, bookId, quantity);
+                                              @PathVariable Long bookId) {
+        Orders order = returnTransactionService.returnBooks(orderId, bookId);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
