@@ -1,0 +1,16 @@
+### Add Book Request
+POST http://localhost:8080/api/transactions/add-book
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "The Great Gatsby",
+  "publishYear": 1925,
+  "description": "A novel by F. Scott Fitzgerald set in the Jazz Age.",
+  "totalAmount": 10,
+  "price": 20,
+  "coverUrl": "https://example.com/gatsby.jpg",
+  "genre": {
+    "id": 1
+  }
+}
