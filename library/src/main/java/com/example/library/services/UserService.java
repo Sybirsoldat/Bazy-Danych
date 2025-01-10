@@ -72,13 +72,13 @@ public class UserService {
         validateUniqueMobilePhone(user.getMobilePhone());
     }
 
-    private void validateUniqueEmail(String email) {
+    void validateUniqueEmail(String email) {
         userRepository.findByEmail(email).ifPresent(u -> {
             throw new RuntimeException("Email already exists");
         });
     }
 
-    private void validateUniqueMobilePhone(String mobilePhone) {
+    void validateUniqueMobilePhone(String mobilePhone) {
         userRepository.findByMobilePhone(mobilePhone).ifPresent(u -> {
             throw new RuntimeException("Mobile phone already exists");
         });

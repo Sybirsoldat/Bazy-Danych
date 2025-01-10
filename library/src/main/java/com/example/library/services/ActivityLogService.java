@@ -4,6 +4,7 @@ import com.example.library.models.ActivityLog;
 import com.example.library.repositories.ActivityLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +14,14 @@ public class ActivityLogService {
     @Autowired
     private ActivityLogRepository activityLogRepository;
 
+    @Transactional
+    public void deleteActivityLogsByUserId(Long userId) {
+        List<ActivityLog> logs = activityLogRepository.findByUser_Id(userId);
+        for (ActivityLog log : logs) {
+            log.setUser(null);
+            activityLogRepository.save(log);
+        }
+    }
 
 
     public List<ActivityLog> getAllActivityLogs() {
@@ -41,4 +50,7 @@ public class ActivityLogService {
         ActivityLog activityLog = getActivityLogById(id);
         activityLogRepository.delete(activityLog);
     }
+
+
+
 }
