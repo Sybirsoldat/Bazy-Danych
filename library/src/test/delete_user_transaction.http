@@ -1,0 +1,3 @@
+### Delete User Request
+DELETE http://localhost:8080/api/transactions/delete-user/5
+Accept: application/json
