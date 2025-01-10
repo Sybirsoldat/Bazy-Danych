@@ -1,0 +1,13 @@
+### Update User Request
+PUT http://localhost:8080/api/transactions/update-user/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "newemail@example.com",
+  "mobilePhone": "123456789",
+  "firstname": "UpdatedFirstName",
+  "surname": "UpdatedSurname",
+  "address": "Updated Address",
+  "status": 1
+}
