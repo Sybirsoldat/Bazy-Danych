@@ -1,0 +1,10 @@
+.booklist {
+    margin-bottom: 40px;
+  }
+  
+  .booklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  

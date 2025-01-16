@@ -1,0 +1,51 @@
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Elementy nawigacji po lewej, koszyk po prawej */
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .navbar-menu {
+    display: flex;
+    list-style: none; /* Usunięcie domyślnej listy */
+    gap: 25px;       /* Odstępy między elementami menu */
+    margin-left: auto; /* Przesunięcie menu bliżej koszyka */
+    margin-right: 20px; /* Lekka przerwa między menu a koszykiem */
+  }
+  
+  .navbar-menu li {
+    cursor: pointer; /* Dodaj wskaźnik ręki */
+    font-size: 16px;
+    color: #333;
+    transition: color 0.3s ease; /* Płynna zmiana koloru na hover */
+  }
+  
+  .navbar-menu li:hover {
+    color: #001f94; /* Kolor podczas najechania */
+  }
+  
+  .navbar-cart {
+    background-color: #001f94;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer; /* Dodaj wskaźnik ręki */
+    transition: background-color 0.3s ease; /* Płynne przejście koloru tła */
+  }
+  
+  .navbar-cart:hover {
+    background-color: #001f94; /* Kolor podczas najechania */
+  }
+
+  .navbar-logo {
+    font-size: 24px;           /* Większy rozmiar tekstu */
+    font-weight: bold;         /* Pogrubiona czcionka */
+    color: #001f94;            /* Odcień niebieskiego */
+    font-family: 'Times New Roman', serif; /* Klasyczna czcionka */
+    text-align: center;        /* Wyśrodkowanie tekstu */
+  }
