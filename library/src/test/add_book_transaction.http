@@ -11,6 +11,6 @@ Accept: application/json
   "price": 20,
   "coverUrl": "https://example.com/gatsby.jpg",
   "genre": {
-    "id": 1
+    "id": true
   }
 }

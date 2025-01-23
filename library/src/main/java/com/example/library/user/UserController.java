@@ -1,7 +1,5 @@
-package com.example.library.controllers;
+package com.example.library.user;
 
-import com.example.library.models.User;
-import com.example.library.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,10 +42,10 @@ public class UserController {
 
     @PostMapping
     @Operation(summary = "Utwórz nowego użytkownika", description = "Dodaje nowego użytkownika do systemu")
-    public ResponseEntity<User> createUser(
+    public ResponseEntity<String> createUser(
             @Parameter(description = "Dane nowego użytkownika")
             @RequestBody User user) {
-        User createdUser = userService.createUser(user);
+        String createdUser = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 

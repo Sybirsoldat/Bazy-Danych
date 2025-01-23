@@ -1,7 +1,5 @@
-package com.example.library.controllers;
+package com.example.library.user;
 
-import com.example.library.models.User;
-import com.example.library.services.UserTransactionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

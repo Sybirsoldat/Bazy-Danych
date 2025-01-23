@@ -4,11 +4,12 @@ package com.example.library.services;
 
 import com.example.library.models.ActivityLog;
 import com.example.library.models.Orders;
-import com.example.library.models.User;
+import com.example.library.user.User;
 import com.example.library.models.OrdersBooks;
 import com.example.library.repositories.ActivityLogRepository;
 import com.example.library.repositories.OrdersBooksRepository;
 import com.example.library.repositories.OrdersRepository;
+import com.example.library.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

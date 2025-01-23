@@ -1,7 +1,5 @@
-package com.example.library.controllers;
+package com.example.library.user;
 
-import com.example.library.models.User;
-import com.example.library.services.UpdateUserTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
