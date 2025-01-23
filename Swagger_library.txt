@@ -1,0 +1,2371 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "OrdersBooks API",
+      "description": "API do zarządzania powiązaniami książek z zamówieniami"
+    },
+    {
+      "name": "Activity Log API",
+      "description": "API do zarządzania logami aktywności użytkowników w systemie bibliotecznym"
+    },
+    {
+      "name": "Users API",
+      "description": "API do zarządzania użytkownikami w systemie bibliotecznym"
+    },
+    {
+      "name": "User Transactions",
+      "description": "API for user-related transactions"
+    },
+    {
+      "name": "Genres API",
+      "description": "API do zarządzania gatunkami książek w systemie bibliotecznym"
+    },
+    {
+      "name": "Extend Return Date API",
+      "description": "API for extending the return date of books"
+    },
+    {
+      "name": "Books API",
+      "description": "API do zarządzania książkami w systemie bibliotecznym"
+    },
+    {
+      "name": "Genders API",
+      "description": "API do zarządzania płciami użytkowników w systemie bibliotecznym"
+    },
+    {
+      "name": "Roles API",
+      "description": "API do zarządzania rolami użytkowników w systemie bibliotecznym"
+    },
+    {
+      "name": "Orders API",
+      "description": "API do zarządzania zamówieniami w systemie bibliotecznym"
+    }
+  ],
+  "paths": {
+    "/api/transactions/update-user/{id}": {
+      "put": {
+        "tags": [
+          "update-user-transaction-controller"
+        ],
+        "summary": "Update User",
+        "description": "Update the details of an existing user.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID użytkownika",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transactions/return-book/{orderId}/{bookId}": {
+      "put": {
+        "tags": [
+          "return-transaction-controller"
+        ],
+        "summary": "Return Book",
+        "description": "Return a book for a specific order.",
+        "operationId": "returnBooks",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID zamówienia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          },
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID książki",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Orders"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transactions/issue-book/{orderId}/{bookId}": {
+      "put": {
+        "tags": [
+          "issue-book-transaction-controller"
+        ],
+        "summary": "Issue Book",
+        "description": "Issue a book based on an order.",
+        "operationId": "issueBook",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID zamówienia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          },
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID książki",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Orders"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transactions/extend-return/{orderId}/{bookId}/{additionalDays}/{userId}": {
+      "put": {
+        "tags": [
+          "Extend Return Date API"
+        ],
+        "summary": "Extend return date",
+        "description": "Extend the return date of a book for a specific order.",
+        "operationId": "extendReturnDate",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID zamówienia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          },
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID książki",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 10
+          },
+          {
+            "name": "additionalDays",
+            "in": "path",
+            "description": "Dodatkowe dni przedłużenia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 7
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID użytkownika",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 5
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Orders"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transactions/change-status/{userId}/{newStatus}": {
+      "put": {
+        "tags": [
+          "user-status-transaction-controller"
+        ],
+        "operationId": "changeUserStatus",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "newStatus",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/roles/{id}": {
+      "get": {
+        "tags": [
+          "Roles API"
+        ],
+        "summary": "Pobierz rolę po ID",
+        "description": "Zwraca szczegóły roli na podstawie jej ID",
+        "operationId": "getRoleById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID roli",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Roles API"
+        ],
+        "summary": "Zaktualizuj rolę",
+        "description": "Aktualizuje istniejącą rolę użytkownika na podstawie ID",
+        "operationId": "updateRole",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID roli do aktualizacji",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Roles API"
+        ],
+        "summary": "Usuń rolę",
+        "description": "Trwale usuwa rolę użytkownika na podstawie jej ID",
+        "operationId": "deleteRole",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID roli do usunięcia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}": {
+      "get": {
+        "tags": [
+          "Orders API"
+        ],
+        "summary": "Pobierz zamówienie po ID",
+        "description": "Zwraca szczegóły zamówienia na podstawie jego ID",
+        "operationId": "getOrderById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID zamówienia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Orders"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Orders API"
+        ],
+        "summary": "Zaktualizuj zamówienie",
+        "description": "Aktualizuje istniejące zamówienie na podstawie jego ID",
+        "operationId": "updateOrder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID zamówienia do aktualizacji",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Orders"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Orders"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Orders API"
+        ],
+        "summary": "Usuń zamówienie",
+        "description": "Trwale usuwa zamówienie na podstawie ID",
+        "operationId": "deleteOrder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID zamówienia do usunięcia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/orders-books/{id}": {
+      "get": {
+        "tags": [
+          "OrdersBooks API"
+        ],
+        "summary": "Pobierz powiązanie książki z zamówieniem po ID",
+        "description": "Zwraca szczegóły powiązania książki z zamówieniem na podstawie jego unikalnego ID",
+        "operationId": "getOrdersBooksById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID powiązania książki z zamówieniem",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersBooks"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "OrdersBooks API"
+        ],
+        "summary": "Zaktualizuj powiązanie książki z zamówieniem",
+        "description": "Aktualizuje szczegóły istniejącego powiązania książki z zamówieniem",
+        "operationId": "updateOrdersBooks",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID powiązania do aktualizacji",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdersBooks"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersBooks"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "OrdersBooks API"
+        ],
+        "summary": "Usuń powiązanie książki z zamówieniem",
+        "description": "Trwale usuwa powiązanie książki z zamówieniem na podstawie ID",
+        "operationId": "deleteOrdersBooks",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID powiązania do usunięcia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/genres/{id}": {
+      "get": {
+        "tags": [
+          "Genres API"
+        ],
+        "summary": "Pobierz gatunek po ID",
+        "description": "Zwraca szczegóły gatunku książki na podstawie jego ID",
+        "operationId": "getGenreById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID gatunku",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Genre"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Genres API"
+        ],
+        "summary": "Zaktualizuj gatunek",
+        "description": "Aktualizuje istniejący gatunek książek na podstawie jego ID",
+        "operationId": "updateGenre",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID gatunku do aktualizacji",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Genre"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Genre"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Genres API"
+        ],
+        "summary": "Usuń gatunek",
+        "description": "Trwale usuwa gatunek książek na podstawie jego ID",
+        "operationId": "deleteGenre",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID gatunku do usunięcia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/genders/{id}": {
+      "get": {
+        "tags": [
+          "Genders API"
+        ],
+        "summary": "Pobierz płeć po ID",
+        "description": "Zwraca szczegóły płci na podstawie jej ID",
+        "operationId": "getGenderById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID płci",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gender"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Genders API"
+        ],
+        "summary": "Zaktualizuj płeć",
+        "description": "Aktualizuje istniejącą płeć użytkownika na podstawie jej ID",
+        "operationId": "updateGender",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID płci do aktualizacji",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Gender"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gender"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Genders API"
+        ],
+        "summary": "Usuń płeć",
+        "description": "Trwale usuwa płeć użytkownika na podstawie jej ID",
+        "operationId": "deleteGender",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID płci do usunięcia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/books/{id}/price": {
+      "put": {
+        "tags": [
+          "Books API"
+        ],
+        "summary": "Zaktualizuj cenę książki",
+        "description": "Aktualizuje cenę książki na podstawie jej ID",
+        "operationId": "updateBookPrice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID książki do aktualizacji",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "description": "Nowa cena książki",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{id}/availability": {
+      "put": {
+        "tags": [
+          "Books API"
+        ],
+        "summary": "Zaktualizuj dostępność książki",
+        "description": "Aktualizuje liczbę dostępnych egzemplarzy książki",
+        "operationId": "updateAvailability",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID książki do aktualizacji",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          },
+          {
+            "name": "totalAmount",
+            "in": "query",
+            "description": "Nowa liczba dostępnych egzemplarzy",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": [
+          "Users API"
+        ],
+        "summary": "Pobierz wszystkich użytkowników",
+        "description": "Zwraca listę wszystkich użytkowników w systemie",
+        "operationId": "getAllUsers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Users API"
+        ],
+        "summary": "Utwórz nowego użytkownika",
+        "description": "Dodaje nowego użytkownika do systemu",
+        "operationId": "createUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transactions/create-order": {
+      "post": {
+        "tags": [
+          "order-transaction-controller"
+        ],
+        "summary": "Create Order",
+        "description": "Create an order and update inventory status.",
+        "operationId": "createOrderWithBooks",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Orders"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transactions/add-user": {
+      "post": {
+        "tags": [
+          "User Transactions"
+        ],
+        "summary": "Add a new user",
+        "description": "Adds a new user to the system and logs the activity.",
+        "operationId": "addUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transactions/add-book": {
+      "post": {
+        "tags": [
+          "add-book-transaction-controller"
+        ],
+        "summary": "Add Book",
+        "description": "Add a new book to the system.",
+        "operationId": "addBook",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/roles": {
+      "get": {
+        "tags": [
+          "Roles API"
+        ],
+        "summary": "Pobierz wszystkie role",
+        "description": "Zwraca listę wszystkich ról użytkowników w systemie",
+        "operationId": "getAllRoles",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Role"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Roles API"
+        ],
+        "summary": "Utwórz nową rolę",
+        "description": "Dodaje nową rolę użytkownika do systemu",
+        "operationId": "createRole",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders": {
+      "get": {
+        "tags": [
+          "Orders API"
+        ],
+        "summary": "Pobierz wszystkie zamówienia",
+        "description": "Zwraca listę wszystkich zamówień w systemie",
+        "operationId": "getAllOrders",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Orders"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Orders API"
+        ],
+        "summary": "Utwórz nowe zamówienie",
+        "description": "Dodaje nowe zamówienie do systemu",
+        "operationId": "createOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Orders"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Orders"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders-books": {
+      "get": {
+        "tags": [
+          "OrdersBooks API"
+        ],
+        "summary": "Pobierz wszystkie powiązania książek z zamówieniami",
+        "description": "Zwraca listę wszystkich powiązań książek z zamówieniami",
+        "operationId": "getAllOrdersBooks",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdersBooks"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "OrdersBooks API"
+        ],
+        "summary": "Utwórz nowe powiązanie książki z zamówieniem",
+        "description": "Tworzy nowe powiązanie między książką a zamówieniem w bazie danych",
+        "operationId": "createOrdersBooks",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdersBooks"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersBooks"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/genres": {
+      "get": {
+        "tags": [
+          "Genres API"
+        ],
+        "summary": "Pobierz wszystkie gatunki",
+        "description": "Zwraca listę wszystkich gatunków książek w systemie",
+        "operationId": "getAllGenres",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Genre"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Genres API"
+        ],
+        "summary": "Utwórz nowy gatunek",
+        "description": "Dodaje nowy gatunek książek do systemu",
+        "operationId": "createGenre",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Genre"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Genre"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/genders": {
+      "get": {
+        "tags": [
+          "Genders API"
+        ],
+        "summary": "Pobierz wszystkie płcie",
+        "description": "Zwraca listę wszystkich płci użytkowników w systemie",
+        "operationId": "getAllGenders",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Gender"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Genders API"
+        ],
+        "summary": "Utwórz nową płeć",
+        "description": "Dodaje nową płeć użytkowników do systemu",
+        "operationId": "createGender",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Gender"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gender"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books": {
+      "get": {
+        "tags": [
+          "Books API"
+        ],
+        "summary": "Pobierz wszystkie książki",
+        "description": "Zwraca listę wszystkich książek dostępnych w bazie danych",
+        "operationId": "getAllBooks",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Book"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Books API"
+        ],
+        "summary": "Dodaj nową książkę",
+        "description": "Pozwala dodać nową książkę do bazy danych",
+        "operationId": "createBook",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/activitylog": {
+      "get": {
+        "tags": [
+          "Activity Log API"
+        ],
+        "summary": "Pobierz wszystkie logi aktywności",
+        "description": "Zwraca listę wszystkich logów aktywności w systemie",
+        "operationId": "getAllActivityLogs",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityLog"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Activity Log API"
+        ],
+        "summary": "Utwórz nowy log aktywności",
+        "description": "Dodaje nowy log aktywności użytkownika",
+        "operationId": "createActivityLog",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityLog"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityLog"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "tags": [
+          "Users API"
+        ],
+        "summary": "Pobierz użytkownika po ID",
+        "description": "Zwraca szczegóły użytkownika na podstawie jego unikalnego ID",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID użytkownika",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users API"
+        ],
+        "summary": "Usuń użytkownika",
+        "description": "Trwale usuwa użytkownika na podstawie jego ID",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID użytkownika do usunięcia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/login": {
+      "get": {
+        "tags": [
+          "Users API"
+        ],
+        "summary": "Pobierz użytkownika po loginie",
+        "description": "Zwraca użytkownika na podstawie jego loginu",
+        "operationId": "getUserByLogin",
+        "parameters": [
+          {
+            "name": "login",
+            "in": "query",
+            "description": "Login użytkownika",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "admin"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/roles/search": {
+      "get": {
+        "tags": [
+          "Roles API"
+        ],
+        "summary": "Pobierz rolę po nazwie",
+        "description": "Zwraca rolę użytkownika na podstawie nazwy roli",
+        "operationId": "getRoleByName",
+        "parameters": [
+          {
+            "name": "roleName",
+            "in": "query",
+            "description": "Nazwa roli",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Administrator"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders/user/{userId}": {
+      "get": {
+        "tags": [
+          "Orders API"
+        ],
+        "summary": "Pobierz zamówienia użytkownika",
+        "description": "Zwraca listę zamówień na podstawie ID użytkownika",
+        "operationId": "getOrdersByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID użytkownika",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Orders"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders/active": {
+      "get": {
+        "tags": [
+          "Orders API"
+        ],
+        "summary": "Pobierz aktywne zamówienia",
+        "description": "Zwraca listę wszystkich aktywnych zamówień",
+        "operationId": "getActiveOrders",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Orders"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders-books/order/{orderId}": {
+      "get": {
+        "tags": [
+          "OrdersBooks API"
+        ],
+        "summary": "Pobierz powiązania dla zamówienia",
+        "description": "Zwraca listę książek powiązanych z podanym ID zamówienia",
+        "operationId": "getOrdersBooksByOrderId",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID zamówienia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdersBooks"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders-books/issued": {
+      "get": {
+        "tags": [
+          "OrdersBooks API"
+        ],
+        "summary": "Pobierz wydane książki",
+        "description": "Zwraca listę książek, które zostały wydane lub nie, w zależności od parametru",
+        "operationId": "getIssuedOrdersBooks",
+        "parameters": [
+          {
+            "name": "issued",
+            "in": "query",
+            "description": "Czy książka została wydana?",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            },
+            "example": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdersBooks"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders-books/book/{bookId}": {
+      "get": {
+        "tags": [
+          "OrdersBooks API"
+        ],
+        "summary": "Pobierz zamówienia dla książki",
+        "description": "Zwraca listę zamówień, które zawierają podaną książkę",
+        "operationId": "getOrdersBooksByBookId",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID książki",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdersBooks"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/genres/search": {
+      "get": {
+        "tags": [
+          "Genres API"
+        ],
+        "summary": "Pobierz gatunek po nazwie",
+        "description": "Zwraca szczegóły gatunku na podstawie jego nazwy",
+        "operationId": "getGenreByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Nazwa gatunku",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Fantasy"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Genre"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/genders/search": {
+      "get": {
+        "tags": [
+          "Genders API"
+        ],
+        "summary": "Pobierz płeć po nazwie",
+        "description": "Zwraca szczegóły płci na podstawie jej nazwy",
+        "operationId": "getGenderByType",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Nazwa płci",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mężczyzna"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gender"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{id}": {
+      "get": {
+        "tags": [
+          "Books API"
+        ],
+        "summary": "Pobierz książkę po ID",
+        "description": "Zwraca szczegóły książki na podstawie jej unikalnego ID",
+        "operationId": "getBookById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID książki, która ma zostać pobrana",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Books API"
+        ],
+        "summary": "Usuń książkę",
+        "description": "Trwale usuwa książkę z bazy danych",
+        "operationId": "deleteBook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID książki do usunięcia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/books/search": {
+      "get": {
+        "tags": [
+          "Books API"
+        ],
+        "summary": "Wyszukaj książki",
+        "description": "Pozwala wyszukać książki według tytułu, gatunku, roku wydania lub zakresu cen",
+        "operationId": "searchBooks",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Tytuł książki",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "genreId",
+            "in": "query",
+            "description": "ID gatunku książki",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "publishYear",
+            "in": "query",
+            "description": "Rok wydania książki",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "minPrice",
+            "in": "query",
+            "description": "Minimalna cena książki",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "maxPrice",
+            "in": "query",
+            "description": "Maksymalna cena książki",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Book"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/activitylog/{id}": {
+      "get": {
+        "tags": [
+          "Activity Log API"
+        ],
+        "summary": "Pobierz log aktywności po ID",
+        "description": "Zwraca szczegóły logu aktywności na podstawie jego ID",
+        "operationId": "getActivityLogById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID logu aktywności",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityLog"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Activity Log API"
+        ],
+        "summary": "Usuń log aktywności",
+        "description": "Usuwa log aktywności na podstawie jego ID",
+        "operationId": "deleteActivityLog",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID logu aktywności do usunięcia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/activitylog/user/{userId}": {
+      "get": {
+        "tags": [
+          "Activity Log API"
+        ],
+        "summary": "Pobierz logi aktywności użytkownika",
+        "description": "Zwraca logi aktywności dla konkretnego użytkownika na podstawie jego ID",
+        "operationId": "getActivityLogsByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID użytkownika",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityLog"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/activitylog/search": {
+      "get": {
+        "tags": [
+          "Activity Log API"
+        ],
+        "summary": "Wyszukaj logi aktywności po akcji",
+        "description": "Zwraca logi aktywności na podstawie podanej nazwy akcji",
+        "operationId": "searchActivityLogsByAction",
+        "parameters": [
+          {
+            "name": "action",
+            "in": "query",
+            "description": "Nazwa akcji logu",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "login"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityLog"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transactions/delete-user/{userId}": {
+      "delete": {
+        "tags": [
+          "delete-user-transaction-controller"
+        ],
+        "summary": "Delete User",
+        "description": "Delete a user account completely.",
+        "operationId": "deleteUser_1",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID użytkownika",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/books/{id}/soft": {
+      "delete": {
+        "tags": [
+          "Books API"
+        ],
+        "summary": "Ukryj książkę",
+        "description": "Usuwa książkę logicznie (ukrywa ją, ale nie usuwa fizycznie)",
+        "operationId": "softDeleteBook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID książki do ukrycia",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Gender": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "description": "Dane nowej płci użytkownika"
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "roleName": {
+            "type": "string"
+          }
+        },
+        "description": "Dane nowej roli użytkownika"
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "login": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "patronymic": {
+            "type": "string"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "address": {
+            "type": "string"
+          },
+          "mobilePhone": {
+            "type": "string"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "description": "Details of the new user"
+      },
+      "Orders": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "orderDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateFrom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateTo": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        },
+        "description": "Dane nowego zamówienia"
+      },
+      "Book": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "totalAmount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "coverUrl": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "publishYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "genre": {
+            "$ref": "#/components/schemas/Genre"
+          }
+        },
+        "description": "Dane nowej książki"
+      },
+      "Genre": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "description": "Dane nowego gatunku książek"
+      },
+      "OrdersBooks": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "book": {
+            "$ref": "#/components/schemas/Book"
+          },
+          "order": {
+            "$ref": "#/components/schemas/Orders"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "issued": {
+            "type": "boolean"
+          }
+        },
+        "description": "Dane nowego powiązania książki z zamówieniem"
+      },
+      "OrderRequest": {
+        "type": "object",
+        "properties": {
+          "order": {
+            "$ref": "#/components/schemas/Orders"
+          },
+          "books": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrdersBooks"
+            }
+          }
+        },
+        "description": "Szczegóły zamówienia i książek"
+      },
+      "ActivityLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "action": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "description": "Dane nowego logu aktywności"
+      }
+    }
+  }
+}
