@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e5b700',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-roboto text-gray-800 dark:text-gray-200 dark:bg-gray-900 flex items-center justify-center min-h-screen">
+
+<div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200 text-center">Logowanie</h2>
+    <form action="/login" method="post" class="space-y-6">
+        <div>
+            <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nazwa użytkownika</label>
+            <input type="text" id="username" name="username" required
+                   class="mt-1 block w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+        </div>
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Hasło</label>
+            <input type="password" id="password" name="password" required
+                   class="mt-1 block w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+        </div>
+        <div class="flex items-center justify-between">
+            <button type="submit"
+                    class="bg-primary text-white py-2 px-6 rounded-lg shadow-lg hover:bg-yellow-600 transition">Zaloguj się</button>
+        </div>
+    </form>
+    <p class="mt-6 text-center text-gray-700 dark:text-gray-300">
+        Nie masz konta?
+        <a href="register" class="text-primary hover:underline">Zarejestruj się</a>
+    </p>
+    <a href="/" class="text-primary hover:underline block text-center mt-8">
+        Wróć do strony głównej
+    </a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Pobieranie parametrów z URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    const logout = urlParams.get('logout');
+
+    const toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+
+    if (error === 'true') {
+        toastMixin.fire({
+            icon: 'error',
+            title: 'Nieprawidłowe dane logowania'
+        });
+    } else if (logout === 'true') {
+        toastMixin.fire({
+            icon: 'success',
+            title: 'Wylogowano pomyślnie'
+        });
+    } else if (logout === 'password') {
+        toastMixin.fire({
+            icon: 'success',
+            title: 'Zaloguj się po zmianie hasła'
+        });
+    } else if (logout === 'verify') {
+        toastMixin.fire({
+            icon: 'success',
+            title: 'Konto zostało aktywowane'
+        });
+    }
+</script>
+</body>
+</html>

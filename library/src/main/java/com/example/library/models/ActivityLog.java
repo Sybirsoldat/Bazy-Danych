@@ -1,5 +1,6 @@
 package com.example.library.models;
 
+import com.example.library.user.User;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 

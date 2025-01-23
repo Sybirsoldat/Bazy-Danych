@@ -1,9 +1,10 @@
 ### Dodaj nowego użytkownika
+# @no-redirect
 POST http://localhost:8080/api/transactions/add-user
 Content-Type: application/json
 
 {
-  "login": "johnpork",
+  "login": "johnpork2",
   "password": "securepassword",
   "email": "krupier@example.com",
   "firstname": "John",

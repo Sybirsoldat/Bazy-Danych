@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestracja </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="font-roboto text-gray-800 dark:text-gray-200 dark:bg-gray-900">
+<main class="min-h-screen flex flex-col items-center justify-center">
+    <br>
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200 text-center">Rejestracja</h2>
+        <form id="registerForm" class="space-y-6">
+            <div>
+                <label for="username" class="block text-sm font-medium">Nazwa użytkownika</label>
+                <input type="text" id="username" name="username" required class="mt-1 block w-full p-3 border rounded-md">
+            </div>
+            <div>
+                <label for="firstName" class="block text-sm font-medium">Imię</label>
+                <input type="text" id="firstName" name="firstName" required class="mt-1 block w-full p-3 border rounded-md">
+            </div>
+            <div>
+                <label for="surname" class="block text-sm font-medium">Nazwisko</label>
+                <input type="text" id="surname" name="surname" required class="mt-1 block w-full p-3 border rounded-md">
+            </div>
+            <div>
+                <label for="patronymic" class="block text-sm font-medium">Imię ojca (opcjonalne)</label>
+                <input type="text" id="patronymic" name="patronymic" class="mt-1 block w-full p-3 border rounded-md">
+            </div>
+            <div>
+                <label for="genderId" class="block text-sm font-medium">Płeć</label>
+                <select id="genderId" name="genderId" required class="mt-1 block w-full p-3 border rounded-md">
+                    <option value="" disabled selected>Wybierz płeć</option>
+                    <option value="1">Mężczyzna</option>
+                    <option value="2">Kobieta</option>
+                </select>
+            </div>
+            <div>
+                <label for="address" class="block text-sm font-medium">Adres</label>
+                <input type="text" id="address" name="address" required class="mt-1 block w-full p-3 border rounded-md">
+            </div>
+            <div>
+                <label for="mobilePhone" class="block text-sm font-medium">Telefon komórkowy</label>
+                <input type="text" id="mobilePhone" name="mobilePhone" required class="mt-1 block w-full p-3 border rounded-md">
+            </div>
+            <div>
+                <label for="email" class="block text-sm font-medium">Email</label>
+                <input type="email" id="email" name="email" required class="mt-1 block w-full p-3 border rounded-md">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium">Hasło</label>
+                <input type="password" id="password" name="password" required class="mt-1 block w-full p-3 border rounded-md">
+            </div>
+            <div>
+                <label for="confirmPassword" class="block text-sm font-medium">Powtórz hasło</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required class="mt-1 block w-full p-3 border rounded-md">
+            </div>
+            <input type="hidden" id="roleId" name="roleId" value="3">
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-primary text-white py-2 px-6 rounded-lg">Zarejestruj się</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script>
+    document.querySelector('#registerForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        let formData = new FormData(this);
+        let data = Object.fromEntries(formData);
+
+        // Walidacja haseł
+        if (data.password !== data.confirmPassword) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Błąd',
+                text: 'Hasła nie są takie same',
+            });
+            return;
+        }
+
+        // Sprawdzenie wymaganych pól przed wysłaniem
+        if (!data.genderId) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Błąd',
+                text: 'Wybierz płeć',
+            });
+            return;
+        }
+
+        // Wysłanie danych do backendu
+        fetch('/api/register/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(responseData => {
+                if (responseData.error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Błąd',
+                        text: responseData.message,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sukces',
+                        text: responseData.message,
+                    }).then(() => {
+                        window.location.href = '/login';
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Błąd',
+                    text: 'Wystąpił błąd podczas rejestracji',
+                });
+            });
+    });
+</script>
+</body>
+</html>

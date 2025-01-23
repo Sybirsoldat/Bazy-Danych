@@ -1,8 +1,7 @@
-package com.example.library.services;
+package com.example.library.user;
 
 import com.example.library.models.ActivityLog;
-import com.example.library.models.User;
-import com.example.library.repositories.UserRepository;
+import com.example.library.services.ActivityLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potwierdzenie Rejestracji - Klama Wrocław</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e5b700',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body class="font-roboto text-gray-800 dark:text-gray-200 dark:bg-gray-900">
+
+<header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 w-full z-10">
+    <nav class="container mx-auto flex items-center justify-between p-4">
+        <ul class="menu hidden md:flex space-x-6">
+            <li><a href="/" class="hover:text-primary">STRONA GŁÓWNA</a></li>
+            <li><a href="/rent" class="hover:text-primary">WYPOŻYCZALNIA</a></li>
+            <li><a href="/login" class="hover:text-primary">MOJE KONTO</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="container mx-auto p-4 flex items-center justify-center">
+    <div id="confirmation-message" class="text-center">
+        <h1 class="text-3xl font-bold text-primary mb-4">Potwierdzenie rejestracji</h1>
+        <p class="text-lg">Trwa potwierdzanie Twojego konta...</p>
+    </div>
+</main>
+
+
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+
+        if (!token) {
+            window.location.href = '/register';
+        }
+
+        const messageContainer = document.getElementById('confirmation-message');
+
+        fetch('/api/register/confirm?token=' + token, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error !== 200) {
+                    messageContainer.innerHTML = `
+                        <div class="error-message bg-red-50 dark:bg-red-700 p-4 rounded-lg shadow">
+                            <h1 class="text-2xl font-semibold mb-2 text-red-800 dark:text-red-200">Błąd</h1>
+                            <p class="text-red-700 dark:text-red-300">${data.message}</p>
+                        </div>
+                    `;
+                } else {
+                    window.location.href = '/login?logout=verify';
+                }
+            })
+            .catch(error => {
+                messageContainer.innerHTML = `
+                    <div class="error-message bg-red-50 dark:bg-red-700 p-4 rounded-lg shadow">
+                        <h1 class="text-2xl font-semibold mb-2 text-red-800 dark:text-red-200">Błąd połączenia</h1>
+                        <p class="text-red-700 dark:text-red-300">Nie udało się połączyć z serwerem. Spróbuj ponownie później.</p>
+                    </div>
+                `;
+            });
+    });
+</script>
+
+</body>
+</html>

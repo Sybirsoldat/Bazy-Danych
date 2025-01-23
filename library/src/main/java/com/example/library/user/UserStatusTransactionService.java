@@ -1,9 +1,7 @@
-package com.example.library.services;
+package com.example.library.user;
 
 import com.example.library.models.ActivityLog;
-import com.example.library.models.User;
 import com.example.library.repositories.ActivityLogRepository;
-import com.example.library.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,19 +23,19 @@ public class UserStatusTransactionService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (user.getStatus() != newStatus) {
-            // Zmień status użytkownika
-            user.setStatus(newStatus);
-            userRepository.save(user);
-
-            // Dodaj wpis do dziennika aktywności
-            ActivityLog log = new ActivityLog();
-            log.setUser(user);
-            log.setAction("Changed status of user ID: " + userId + " to " + (newStatus == 1 ? "active" : "inactive"));
-            log.setTimestamp(java.time.LocalDateTime.now());
-            activityLogRepository.save(log);
-        }
-
-        return user;
-    }
+//    if (user.getStatus() != newStatus) {
+//        // Zmień status użytkownika
+//        user.setStatus(newStatus);
+//        userRepository.save(user);
+//
+//        // Dodaj wpis do dziennika aktywności
+//        ActivityLog log = new ActivityLog();
+//        log.setUser(user);
+//        log.setAction("Changed status of user ID: " + userId + " to " + (newStatus == 1 ? "active" : "inactive"));
+//        log.setTimestamp(java.time.LocalDateTime.now());
+//        activityLogRepository.save(log);
+//    }
+//
+    return user;
+}
 }
