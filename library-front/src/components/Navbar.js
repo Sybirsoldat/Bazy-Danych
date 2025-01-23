@@ -1,19 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext"; // Upewnij się, że ścieżka jest poprawna
 import "./Navbar.css";
 
 const Navbar = () => {
+  const { cartItems } = useCart(); // Pobranie cartItems z kontekstu
+
   return (
     <nav className="navbar">
-      <span className="navbar-logo">BWR</span>
+      <Link to="/" className="navbar-logo">BWR</Link>
       <ul className="navbar-menu">
-        <li>Zarezerwuj salę</li>
-        <li>Wypożycz</li>
-        <li>Zaloguj się</li>
-        <li>Zarejestruj się</li>
-        <li>Profil Użytkownika</li>
-        <li>O nas</li>
+        <li><Link to="/">Wypożycz</Link></li>
+        <li><Link to="/login">Zaloguj się</Link></li>
+        <li><Link to="/register">Zarejestruj się</Link></li>
+        <li><Link to="/profile">Profil</Link></li>
+        <li><Link to="/about">O nas</Link></li>
       </ul>
-      <button className="navbar-cart">Koszyk (3)</button>
+      <Link to="/cart">
+        <button className="navbar-cart">Koszyk ({cartItems.length})</button>
+      </Link>
     </nav>
   );
 };

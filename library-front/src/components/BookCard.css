@@ -30,3 +30,20 @@
   .book-card:hover {
     transform: scale(1.05); /* Powiększenie przy najechaniu */
   }
+
+  .btn-primary {
+    background-color: #0022a7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .btn-primary:hover {
+    background-color: #001a80;
+  }

@@ -7,4 +7,28 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
   }
+
+  .btn-primary {
+    background-color: #007bff; /* Kolor niebieski */
+    color: #ffffff; /* Biały tekst */
+    font-size: 18px; /* Powiększenie tekstu */
+    font-weight: bold; /* Pogrubiona czcionka */
+    text-align: center; /* Wycentrowanie tekstu */
+    padding: 15px 30px; /* Większe wypełnienie */
+    border: none; /* Usunięcie obramowania */
+    border-radius: 5px; /* Zaokrąglone rogi */
+    cursor: pointer; /* Kursor wskazujący kliknięcie */
+    width: 100%; /* Wypełnia dostępne miejsce */
+    display: block; /* Sprawia, że zajmuje całą szerokość kontenera */
+    transition: all 0.3s ease-in-out; /* Płynne przejścia */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Ciemniejszy niebieski przy najechaniu */
+    transform: scale(1.05); /* Delikatne powiększenie */
+  }
+  
+  .btn-primary:active {
+    transform: scale(0.95); /* Kliknięcie zmniejsza przycisk */
+  }
   

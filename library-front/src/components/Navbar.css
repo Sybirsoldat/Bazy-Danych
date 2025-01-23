@@ -47,5 +47,10 @@
     font-weight: bold;         /* Pogrubiona czcionka */
     color: #001f94;            /* Odcień niebieskiego */
     font-family: 'Times New Roman', serif; /* Klasyczna czcionka */
-    text-align: center;        /* Wyśrodkowanie tekstu */
+    text-align: center;           /* Wyśrodkowanie tekstu */
+    cursor: pointer;       
+  }
+
+  .navbar-logo:hover {
+    color: #007bff;
   }

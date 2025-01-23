@@ -1,8 +1,14 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import BookList from "./components/BookList";
 import CookiePopup from "./components/CookiePopup";
+import About from "./components/About";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Cart from "./components/Cart";
+import Profile from "./components/Profile";
 import image1 from "./images/image1.jpg";
 import image2 from "./images/image2.jpg";
 import image3 from "./images/image3.jpg";
@@ -37,15 +43,27 @@ const App = () => {
 
 
   return (
-    <div>
+    <Router>
       <Navbar />
-      <main>
-        <BookList title="Wybrane dla Ciebie" books={booksSelected} />
-        <BookList title="Popularne" books={booksPopular} />
-      </main>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <main>
+              <BookList title="Wybrane dla Ciebie" books={booksSelected} />
+              <BookList title="Popularne" books={booksPopular} />
+            </main>
+          }
+        />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
       <Footer contactInfo={contactInfo} />
       <CookiePopup />
-    </div>
+    </Router>
   );
 };
 
